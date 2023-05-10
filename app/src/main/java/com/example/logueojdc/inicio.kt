@@ -12,6 +12,8 @@ class inicio : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inicio)
         auth = FirebaseAuth.getInstance()
+
+
         val btn_regresar=findViewById<Button>(R.id.regresar)
         btn_regresar.setOnClickListener {
             auth.signOut()

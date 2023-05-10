@@ -17,6 +17,12 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_LogueoJDC)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val btnreset=findViewById<Button>(R.id.reset_password_button)
+        btnreset.setOnClickListener {
+            val intent = Intent(this, ResetPass::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         auth = FirebaseAuth.getInstance()
         val btn_registrar=findViewById<Button>(R.id.registrar)
@@ -62,33 +68,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    fun resetPassword(view: View) {
-        val email2=findViewById<TextView>(R.id.email2)
-        val email = email2.text.toString()
 
-        if (email.isNotEmpty()) {
-            auth.sendPasswordResetEmail(email)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(
-                            this,
-                            "Se ha enviado un correo electrónico para restablecer la contraseña",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        Toast.makeText(
-                            this,
-                            "La recuperación de contraseña falló",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-        } else {
-            Toast.makeText(
-                this,
-                "Ingrese su correo electrónico para solicitar la recuperación de contraseña",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
 }
