@@ -8,73 +8,65 @@
     android:backgroundTintMode="screen"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/registrar"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="548dp"
-        android:layout_marginEnd="21dp"
-        android:backgroundTint="#22928E"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logojdc" />
+
+    <Button
+        android:id="@+id/registrar"
+        android:layout_width="255dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="520dp"
+        android:backgroundTint="#257B87"
         android:text="registrar"
         app:icon="@android:drawable/ic_menu_save"
-        app:layout_constraintEnd_toStartOf="@+id/ingresar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/ingresar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="548dp"
-        android:layout_marginEnd="43dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="464dp"
         android:backgroundTint="#22928E"
         android:text="ingresar"
         app:icon="@android:drawable/ic_menu_send"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/registrar"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:drawableStart="@android:drawable/ic_lock_idle_lock"
-        android:ems="10"
-        android:fontFamily="sans-serif-medium"
-        android:inputType="textPassword"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.361"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/reset_password_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="86dp"
+        android:layout_width="255dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="576dp"
         android:backgroundTint="#155668"
         android:text="Recupere su contraseña"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/email"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="44dp"
         android:contentDescription="@string/prompt_email"
         android:drawableStart="@android:drawable/sym_action_email"
         android:ems="10"
         android:fontFamily="sans-serif-medium"
+        android:hint="email"
         android:inputType="textEmailAddress"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -83,15 +75,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <EditText
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
+        android:drawableStart="@android:drawable/ic_lock_idle_lock"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:hint="contraseña"
+        android:inputType="textPassword"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:typeface="sans"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <ImageButton
+        android:id="@+id/clear"
+        android:layout_width="44dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="464dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.792"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logojdc" />
+        app:srcCompat="@drawable/compartimiento1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

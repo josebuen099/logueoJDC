@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -32,14 +33,24 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+        //boton para resetear los campos de email y contraseña
+        val btn_borrarcontenido=findViewById<ImageButton>(R.id.clear)
+        btn_borrarcontenido.setOnClickListener {
+            val email2 = findViewById<TextView>(R.id.email)
+            val password2 = findViewById<TextView>(R.id.password)
+           email2.setText("")
+            password2.setText("")
 
+
+        }
+// boton para ingresar a firebase auten
         val btn_ingresar=findViewById<Button>(R.id.ingresar)
         btn_ingresar.setOnClickListener {
             val email2 = findViewById<TextView>(R.id.email)
             val password2 = findViewById<TextView>(R.id.password)
             val email = email2.text.toString()
             val password = password2.text.toString()
-
+//condicion para revisar que email y contraseña no sean vacios
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
@@ -58,6 +69,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+// mantiene la seccion activa
         auth.addAuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
             if (user != null) {
