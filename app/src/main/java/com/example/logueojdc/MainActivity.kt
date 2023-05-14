@@ -50,7 +50,11 @@ class MainActivity : AppCompatActivity() {
             val password2 = findViewById<TextView>(R.id.password)
             val email = email2.text.toString()
             val password = password2.text.toString()
+            // Patrón para identificar que el correo electrónico cumpla con el estandar de ser Institucional JDC
+            val patrondeEmail = "[a-zA-Z0-9._-]+@[jdc]+\\.+[edu]+\\.+[co]+"
+           // val patrondeEmail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]+"
 //condicion para revisar que email y contraseña no sean vacios
+
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
@@ -60,12 +64,23 @@ class MainActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            // El inicio de sesión falló
-                            Toast.makeText(this, "El inicio de sesión falló", Toast.LENGTH_SHORT).show()
+                            if (email.matches(patrondeEmail.toRegex())){
+                                Toast.makeText(this, "El inicio de sesión falló verifique los datos", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(this, "El email ingresado no cumple con las caracteristicas", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
             } else {
-                Toast.makeText(this, "Por favor ingrese su correo electrónico y contraseña", Toast.LENGTH_SHORT).show()
+                if (email.isEmpty()){
+                    Toast.makeText(this, "Por favor ingrese su correo electrónico", Toast.LENGTH_SHORT).show()
+                }else{
+                    if (password.isEmpty()){
+                        Toast.makeText(this, "Por favor ingrese su contraseña", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(this, "Por favor ingrese su correo electrónico y contraseña", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
 
