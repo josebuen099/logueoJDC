@@ -65,20 +65,20 @@ class MainActivity : AppCompatActivity() {
                             finish()
                         } else {
                             if (email.matches(patrondeEmail.toRegex())){
-                                Toast.makeText(this, "El inicio de sesión falló verifique los datos", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "El inicio de sesión falló. Verifique los datos.", Toast.LENGTH_SHORT).show()
                             }else{
-                                Toast.makeText(this, "El email ingresado no cumple con las caracteristicas", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "El email ingresado no cumple con las características.", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
             } else {
                 if (email.isEmpty()){
-                    Toast.makeText(this, "Por favor ingrese su correo electrónico", Toast.LENGTH_SHORT).show()
-                }else{
+                    Toast.makeText(this, "Por favor ingrese su correo electrónico.", Toast.LENGTH_SHORT).show()
+                }else {
                     if (password.isEmpty()){
-                        Toast.makeText(this, "Por favor ingrese su contraseña", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Por favor ingrese su contraseña.", Toast.LENGTH_SHORT).show()
                     }else{
-                        Toast.makeText(this, "Por favor ingrese su correo electrónico y contraseña", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Por favor ingrese su correo electrónico y contraseña.", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

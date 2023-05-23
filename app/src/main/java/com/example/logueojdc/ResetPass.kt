@@ -16,7 +16,7 @@ class ResetPass : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
         setContentView(R.layout.activity_reset_pass)
-        val home = findViewById<Button>(R.id.returnHome)
+        val home = findViewById<Button>(R.id.returnHome1)
         home.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

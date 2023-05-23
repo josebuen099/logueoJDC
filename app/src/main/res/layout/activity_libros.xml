@@ -118,19 +118,6 @@
         app:srcCompat="@drawable/escoba" />
 
     <ImageButton
-        android:id="@+id/deletelibro"
-        android:layout_width="66dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="540dp"
-        android:background="#00FFFFFF"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/compartimiento1" />
-
-    <ImageButton
         android:id="@+id/savelibro"
         android:layout_width="66dp"
         android:layout_height="63dp"
@@ -138,23 +125,23 @@
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.228"
+        app:layout_constraintHorizontal_bias="0.339"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/guardar" />
 
     <ImageButton
-        android:id="@+id/loadlibro"
+        android:id="@+id/deletelibro"
         android:layout_width="66dp"
         android:layout_height="63dp"
         android:layout_marginTop="540dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/contexto" />
+        app:srcCompat="@drawable/compartimiento1" />
 
     <ImageButton
         android:id="@+id/scanqr"

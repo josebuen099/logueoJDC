@@ -12,28 +12,55 @@ import com.google.zxing.integration.android.IntentIntegrator
 
 class Libros : AppCompatActivity() {
     private val db= FirebaseFirestore.getInstance()
+    fun load(){
+        val id1 = findViewById<TextView>(R.id.idLibro)
+        val id = id1.text.toString()
+        val titulo1 = findViewById<TextView>(R.id.titulo)
+        val autor1 = findViewById<TextView>(R.id.autor)
+        val genero1 = findViewById<TextView>(R.id.genero)
+        val descripcion1 = findViewById<TextView>(R.id.descripcion)
+        val tiempoPrestamo1=findViewById<TextView>(R.id.tiempoPrestamo)
+        if (id == "") {
+            Toast.makeText(this, "El Id esta vacio,por favor escanee el código ", Toast.LENGTH_SHORT).show()
+
+        }else{
+            db.collection("libros").document(id).get().addOnSuccessListener {
+                titulo1.setText(it.get("titulo") as String?)
+                autor1.setText(it.get("autor") as String?)
+                genero1.setText(it.get("genero") as String?)
+                descripcion1.setText(it.get("descripcion") as String?)
+                tiempoPrestamo1.setText(it.get("tiempo_prestamo") as String?)
+            }
+        }
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_libros)
 
+fun limpiar(){
 
+        val id1 = findViewById<TextView>(R.id.idLibro)
+        val titulo1 = findViewById<TextView>(R.id.titulo)
+        val autor1 = findViewById<TextView>(R.id.autor)
+        val genero1 = findViewById<TextView>(R.id.genero)
+        val descripcion1 = findViewById<TextView>(R.id.descripcion)
+        val tiempoPrestamo1=findViewById<TextView>(R.id.tiempoPrestamo)
+        id1.setText("")
+        titulo1.setText("")
+        autor1.setText("")
+        genero1.setText("")
+        descripcion1.setText("")
+        tiempoPrestamo1.setText("")
+
+
+}
         val btn_borrarcontenido=findViewById<ImageButton>(R.id.clear)
         btn_borrarcontenido.setOnClickListener {
-            val id1 = findViewById<TextView>(R.id.idLibro)
-            val titulo1 = findViewById<TextView>(R.id.titulo)
-            val autor1 = findViewById<TextView>(R.id.autor)
-            val genero1 = findViewById<TextView>(R.id.genero)
-            val descripcion1 = findViewById<TextView>(R.id.descripcion)
-            val tiempoPrestamo1=findViewById<TextView>(R.id.tiempoPrestamo)
-            id1.setText("")
-            titulo1.setText("")
-            autor1.setText("")
-            genero1.setText("")
-            descripcion1.setText("")
-            tiempoPrestamo1.setText("")
-
+           limpiar()
         }
+
         val btn_guarda= findViewById<ImageButton>(R.id.savelibro)
         btn_guarda.setOnClickListener {
             val id1 = findViewById<TextView>(R.id.idLibro)
@@ -57,12 +84,14 @@ class Libros : AppCompatActivity() {
                 "tiempo_prestamo" to tiempoPrestamo)
 
             )
+            limpiar()
 
         }
         val home1 =findViewById<Button>(R.id.regresarinicio)
         home1.setOnClickListener {
             val intent = Intent(this, inicio::class.java)
             startActivity(intent)
+            finish()
 
         }
         val btn_scan=findViewById<ImageButton>(R.id.scanqr)
@@ -75,33 +104,7 @@ iniciarScanner()
             val id = id1.text.toString()
             db.collection("libros").document(id).delete()
             Toast.makeText(this, "Se ha elimininado el libro", Toast.LENGTH_SHORT).show()
-
-        }
-        val btn_load=findViewById<ImageButton>(R.id.loadlibro)
-        btn_load.setOnClickListener {
-            val id1 = findViewById<TextView>(R.id.idLibro)
-            val id = id1.text.toString()
-            val titulo1 = findViewById<TextView>(R.id.titulo)
-            val autor1 = findViewById<TextView>(R.id.autor)
-            val genero1 = findViewById<TextView>(R.id.genero)
-            val descripcion1 = findViewById<TextView>(R.id.descripcion)
-            val tiempoPrestamo1=findViewById<TextView>(R.id.tiempoPrestamo)
-            if (id == "") {
-                Toast.makeText(this, "El Id esta vacio,por favor escanee el código ", Toast.LENGTH_SHORT).show()
-
-            }else{
-                db.collection("libros").document(id).get().addOnSuccessListener {
-                    id1.setText(it.get(id) as String?)
-                    titulo1.setText(it.get("titulo") as String?)
-                    autor1.setText(it.get("autor") as String?)
-                    genero1.setText(it.get("genero") as String?)
-                    descripcion1.setText(it.get("descripcion") as String?)
-                    tiempoPrestamo1.setText(it.get("tiempo_prestamo") as String?)
-                }
-            }
-
-
-
+limpiar()
         }
     }
     private fun iniciarScanner() {
@@ -119,10 +122,13 @@ iniciarScanner()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
         if (result != null) {
             if (result.contents != null) {
                 val id1 = findViewById<TextView>(R.id.idLibro)
                id1.text=result.contents
+                load()
+
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

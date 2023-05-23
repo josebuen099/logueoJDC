@@ -4,8 +4,9 @@
     package="com.example.logueojdc">
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
-
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LogueoJDC"
         tools:targetApi="31">
+        <activity
+            android:name=".BibliotecaVirtual"
+            android:exported="false" />
+        <activity
+            android:name=".Calendario"
+            android:exported="false" />
         <activity
             android:name=".Libros"
             android:exported="false" />
