@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@drawable/mensajes</item> <!-- Reemplaza con tu propio fondo personalizado -->
+        <item name="android:textColorPrimary">@color/white</item> <!-- Reemplaza con tu propio color de texto -->
+        <item name="android:textSize">24sp</item> <!-- Reemplaza con tu propio tamaño de texto -->
+
+        <!-- Agrega más atributos personalizados según tus necesidades -->
+    </style>
+
+</resources>

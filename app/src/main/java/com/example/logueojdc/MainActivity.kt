@@ -1,8 +1,11 @@
 package com.example.logueojdc
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
+import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -12,12 +15,20 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: SQLiteDatabase
 
+
+    @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         // tema layout para crear el splash de entrada
         setTheme(R.style.Theme_LogueoJDC)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //inicializar Base de datos
+        database = openOrCreateDatabase("Logueojdc", Context.MODE_PRIVATE, null)
+        //atributos de la tabla usuario
+        database.execSQL("CREATE TABLE IF NOT EXISTS usuario (email TEXT,password TEXT)")
+
         val btnreset=findViewById<Button>(R.id.reset_password_button)
         btnreset.setOnClickListener {
             val intent = Intent(this, ResetPass::class.java)
@@ -56,9 +67,15 @@ class MainActivity : AppCompatActivity() {
 //condicion para revisar que email y contraseña no sean vacios
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
+                val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val networkInfo = connectivityManager.activeNetworkInfo
+
+                if (networkInfo != null && networkInfo.isConnected) {
+
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
+                            database.execSQL("INSERT INTO usuario VALUES ('$email','$password')")
                             // El inicio de sesión fue exitoso
                             val intent = Intent(this, inicio::class.java)
                             startActivity(intent)
@@ -71,7 +88,26 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
-            } else {
+            } else{
+                    val cursor = database.rawQuery("SELECT * FROM usuario", null)
+                    var emailbd="";
+                    var passwordbd ="";
+                    while (cursor.moveToNext()) {
+                        emailbd= cursor.getString(cursor.getColumnIndex("email"))
+                        passwordbd = cursor.getString(cursor.getColumnIndex("password"))
+                    }
+                    cursor.close()
+                    if (email.equals(emailbd)&& password.equals(passwordbd)){
+                        val intent = Intent(this, inicio::class.java)
+                        startActivity(intent)
+                        finish()
+                        Toast.makeText(this, "Ingreso sin internet.", Toast.LENGTH_SHORT).show()
+
+                    }
+
+
+            }
+            }else {
                 if (email.isEmpty()){
                     Toast.makeText(this, "Por favor ingrese su correo electrónico.", Toast.LENGTH_SHORT).show()
                 }else {

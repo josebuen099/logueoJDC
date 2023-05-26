@@ -46,6 +46,7 @@ class Calendario : AppCompatActivity() {
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val selectedDate = daysOfMonth[position]
                 // Realizar acciones según el día seleccionado
+
             }
     }
 

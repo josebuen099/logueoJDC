@@ -8,10 +8,12 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -87,14 +89,38 @@ class inicio : AppCompatActivity() {
                 Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
             } else {
 
-                db.collection("libros").document(result.contents).get().addOnSuccessListener {
-                    if(it.get("titulo")== null){
+                db.collection("libros").document(result.contents).get().addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.get("titulo") == null) {
+                        val alertDialog = AlertDialog.Builder(ContextThemeWrapper(this, R.style.CustomAlertDialog))
+                            .setTitle("Libro no encontrado")
+                            .setMessage("El libro no fue encontrado en la base de datos.")
+                            .setPositiveButton("Aceptar") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .create()
+                        alertDialog.window?.setBackgroundDrawableResource(R.drawable.dialogos) // Aplica el fondo personalizado
+                        alertDialog.show()
+                    } else {
+                        // Obtener el título del libro encontrado
+                        val tituloLibro = documentSnapshot.getString("titulo")
+                        val autorLibro= documentSnapshot.getString("autor")
+                        val descripcionLibro = documentSnapshot.getString("descripcion")
+                        val generoLibro= documentSnapshot.getString("genero")
 
-                        Toast.makeText(this, "libro no encontrado", Toast.LENGTH_LONG).show()
-                    }else{
-                        Toast.makeText(this, "El libro es:"+ it.get("titulo") as String?+"de"+it.get("autor") as String?, Toast.LENGTH_LONG).show()
+
+                        // Mostrar el título del libro en un cuadro de diálogo
+                        val alertDialog = AlertDialog.Builder(ContextThemeWrapper(this, R.style.CustomAlertDialog))
+                            .setTitle("Libro encontrado")
+                            .setMessage("Título del libro: $tituloLibro \n"+"Autor del libro: $autorLibro  \n"+"Descripción del libro: $descripcionLibro \n"+"Género del libro: $generoLibro")
+                            .setPositiveButton("Aceptar") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .create()
+                        alertDialog.window?.setBackgroundDrawableResource(R.drawable.dialogos) // Aplica el fondo personalizado
+                        alertDialog.show()
                     }
                 }
+
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

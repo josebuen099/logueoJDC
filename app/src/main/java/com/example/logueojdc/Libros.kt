@@ -3,34 +3,46 @@ package com.example.logueojdc
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
 
 class Libros : AppCompatActivity() {
     private val db= FirebaseFirestore.getInstance()
+
     fun load(){
         val id1 = findViewById<TextView>(R.id.idLibro)
         val id = id1.text.toString()
         val titulo1 = findViewById<TextView>(R.id.titulo)
         val autor1 = findViewById<TextView>(R.id.autor)
-        val genero1 = findViewById<TextView>(R.id.genero)
+        val genero1 = findViewById<Spinner>(R.id.spinner)
         val descripcion1 = findViewById<TextView>(R.id.descripcion)
         val tiempoPrestamo1=findViewById<TextView>(R.id.tiempoPrestamo)
         if (id == "") {
             Toast.makeText(this, "El Id esta vacio,por favor escanee el código ", Toast.LENGTH_SHORT).show()
 
         }else{
-            db.collection("libros").document(id).get().addOnSuccessListener {
-                titulo1.setText(it.get("titulo") as String?)
-                autor1.setText(it.get("autor") as String?)
-                genero1.setText(it.get("genero") as String?)
-                descripcion1.setText(it.get("descripcion") as String?)
-                tiempoPrestamo1.setText(it.get("tiempo_prestamo") as String?)
+            db.collection("libros").document(id).get().addOnSuccessListener { documentSnapshot ->
+                titulo1.setText(documentSnapshot.get("titulo") as String?)
+                autor1.setText(documentSnapshot.get("autor") as String?)
+                descripcion1.setText(documentSnapshot.get("descripcion") as String?)
+                tiempoPrestamo1.setText(documentSnapshot.get("tiempo_prestamo") as String?)
+
+                val genero = documentSnapshot.get("genero") as String?
+
+                // Determinar el índice correspondiente al valor del género en el adaptador del Spinner
+                val adapter = genero1.adapter
+                val count = adapter.count
+
+                for (i in 0 until count) {
+                    val item = adapter.getItem(i) as String
+                    if (item == genero) {
+                        genero1.setSelection(i)
+                        break
+                    }
+                }
             }
+
         }
 
     }
@@ -38,19 +50,23 @@ class Libros : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_libros)
+        val spinner: Spinner = findViewById<Spinner>(R.id.spinner)
+        val elementos = arrayOf("Genero", "accion", " ciencia")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, elementos)
+        spinner.adapter = adapter
+       
 
 fun limpiar(){
 
         val id1 = findViewById<TextView>(R.id.idLibro)
         val titulo1 = findViewById<TextView>(R.id.titulo)
         val autor1 = findViewById<TextView>(R.id.autor)
-        val genero1 = findViewById<TextView>(R.id.genero)
         val descripcion1 = findViewById<TextView>(R.id.descripcion)
         val tiempoPrestamo1=findViewById<TextView>(R.id.tiempoPrestamo)
         id1.setText("")
         titulo1.setText("")
         autor1.setText("")
-        genero1.setText("")
+        spinner.setSelection(0)
         descripcion1.setText("")
         tiempoPrestamo1.setText("")
 
@@ -69,12 +85,17 @@ fun limpiar(){
             val titulo = titulo1.text.toString()
             val autor1 = findViewById<TextView>(R.id.autor)
             val autor = autor1.text.toString()
-            val genero1 = findViewById<TextView>(R.id.genero)
-            val genero = genero1.text.toString()
+            val genero = spinner.selectedItem.toString()
+
             val descripcion1 = findViewById<TextView>(R.id.descripcion)
             val descripcion = descripcion1.text.toString()
             val tiempoPrestamo1=findViewById<TextView>(R.id.tiempoPrestamo)
             val tiempoPrestamo = tiempoPrestamo1.text.toString()
+
+            if(id.isEmpty()|| titulo.isEmpty()|| autor.isEmpty() || genero.equals("Genero")||descripcion.isEmpty() ){
+                Toast.makeText(this, "Complete todos los campos ", Toast.LENGTH_SHORT).show()
+
+            }else{
             Toast.makeText(this, "Libro guardado con exito... ", Toast.LENGTH_SHORT).show()
             db.collection("libros").document(id).set(
                 hashMapOf("titulo" to titulo,
@@ -84,7 +105,9 @@ fun limpiar(){
                 "tiempo_prestamo" to tiempoPrestamo)
 
             )
-            limpiar()
+                limpiar()
+            }
+
 
         }
         val home1 =findViewById<Button>(R.id.regresarinicio)
