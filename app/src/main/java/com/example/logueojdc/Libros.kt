@@ -10,7 +10,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 Fecha:11/05/2023
 Comentario:se realiza layout y clase en la cual se agregan libros a la base de datos firestone donde se imprementa el scanneo de codigo del libro
 y los campos necesarios para su identificacion a su ves se realizan las validaciones de los campos y la opcion de que si el libro ya existe lo carga directamente
-cosa que en la version inicial se hacia con un boton
+cosa que en la version inicial se hacia con un boton, se implementa lista desplegable que permite seleccionar el genero del libro.
 */
 class Libros : AppCompatActivity() {
     private val db= FirebaseFirestore.getInstance()
@@ -56,7 +56,7 @@ class Libros : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_libros)
         val spinner: Spinner = findViewById<Spinner>(R.id.spinner)
-        val elementos = arrayOf("Genero", "accion", " ciencia")
+        val elementos = arrayOf("Genero", "Accion", " Ciencia","Drama", "Comedia","Deporte", "Fisica")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, elementos)
         spinner.adapter = adapter
        
@@ -130,10 +130,14 @@ iniciarScanner()
         btn_delete.setOnClickListener {
             val id1 = findViewById<TextView>(R.id.idLibro)
             val id = id1.text.toString()
-            db.collection("libros").document(id).delete()
-            Toast.makeText(this, "Se ha elimininado el libro", Toast.LENGTH_SHORT).show()
-limpiar()
-        }
+            if(id.isEmpty()){
+                Toast.makeText(this, "Id vacio", Toast.LENGTH_SHORT).show()
+            }else {
+
+                db.collection("libros").document(id).delete()
+                Toast.makeText(this, "Se ha elimininado el libro", Toast.LENGTH_SHORT).show()
+                limpiar()
+            } }
     }
     private fun iniciarScanner() {
         val integrator = IntentIntegrator(this)
