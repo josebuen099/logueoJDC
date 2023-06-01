@@ -6,7 +6,12 @@ import android.os.Bundle
 import android.widget.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
-
+/*Autor: Jose Esteban Bueno Sierra
+Fecha:11/05/2023
+Comentario:se realiza layout y clase en la cual se agregan libros a la base de datos firestone donde se imprementa el scanneo de codigo del libro
+y los campos necesarios para su identificacion a su ves se realizan las validaciones de los campos y la opcion de que si el libro ya existe lo carga directamente
+cosa que en la version inicial se hacia con un boton
+*/
 class Libros : AppCompatActivity() {
     private val db= FirebaseFirestore.getInstance()
 

@@ -1,16 +1,14 @@
 package com.example.logueojdc
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.graphics.Bitmap
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.Button
-
-class BibliotecaVirtual : AppCompatActivity() {
+/*Autor: Jose Esteban Bueno Sierra
+Fecha:23/05/2023
+Comentario:se realiza clase biblioteca virtual la cual contiene un webview que hace la redireccion a la pagina de la juan de
+castellanos al apartado de biblioteca
+*/class BibliotecaVirtual : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_biblioteca_virtual)

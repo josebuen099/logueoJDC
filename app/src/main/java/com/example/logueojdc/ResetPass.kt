@@ -9,6 +9,12 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
+/*Autor: Jose Esteban Bueno Sierra
+Fecha:13/05/2023
+Comentario:se realiza clase para el reestablecimiento de contraseña mediante el uso de firebase en donde se le envia el correo y automaticamente
+envia al correo la notificacion de cambio de contraseña, tambien se agrega boton de regreso al layout para devolver al usuario a la pagina de logueo
+
+*/
 class ResetPass : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 

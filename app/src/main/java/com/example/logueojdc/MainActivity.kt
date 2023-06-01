@@ -12,7 +12,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-
+/*Autor: Jose Esteban Bueno Sierra
+Fecha:06/05/2023
+Comentario:se realiza clase main donde se validan los campos de inicio de seccion, implementando persistencia y controlando si el dispositivo
+cuenta con una conexion a internet para que sea logueado de manera online con firebase auntentic o de ser negativo accede a los datos
+guardados en la sqlite
+*/
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: SQLiteDatabase

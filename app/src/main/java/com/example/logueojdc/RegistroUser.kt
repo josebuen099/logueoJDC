@@ -7,7 +7,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-
+/*Autor: Jose Esteban Bueno Sierra
+Fecha:09/05/2023
+Comentario:se realiza clase para el registro de usuario mediante doble confirmacion de contraseña con auth.createUserWithEmailAndPassword(email, password)
+donde le envio como parametros o llaves el correro y la contraseña del usuario
+*/
 class RegistroUser : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 

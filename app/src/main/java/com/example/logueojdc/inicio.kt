@@ -1,26 +1,23 @@
 package com.example.logueojdc
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
+
 import android.content.Intent
-import android.os.Build
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.view.ContextThemeWrapper
-import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.NotificationCompat
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
-import java.util.*
 
+/*Autor: Jose Esteban Bueno Sierra
+Fecha:06/05/2023
+Comentario:se realiza clase inicio donde se hace la conexion con la base de datos y las validaciones de los campos
+*/
 class inicio : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val db= FirebaseFirestore.getInstance()
