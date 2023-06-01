@@ -23,4 +23,12 @@
         android:horizontalSpacing="1dp"
         android:verticalSpacing="1dp" />
 
+    <TextView
+        android:id="@+id/dinamico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:scrollbars="vertical" />
+
 </LinearLayout>

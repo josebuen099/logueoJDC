@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         database = openOrCreateDatabase("Logueojdc", Context.MODE_PRIVATE, null)
         //atributos de la tabla usuario
         database.execSQL("CREATE TABLE IF NOT EXISTS usuario (email TEXT,password TEXT)")
+        // variable para
 
         val btnreset=findViewById<Button>(R.id.reset_password_button)
         btnreset.setOnClickListener {

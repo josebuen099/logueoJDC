@@ -64,6 +64,8 @@ class inicio : AppCompatActivity() {
         calendario.setOnClickListener {
             val intent: Intent = Intent(this, Calendario:: class.java)
             startActivity(intent)
+            finish()
+
         }
 
 
@@ -112,7 +114,17 @@ class inicio : AppCompatActivity() {
                         val alertDialog = AlertDialog.Builder(ContextThemeWrapper(this, R.style.CustomAlertDialog))
                             .setTitle("Libro encontrado")
                             .setMessage("Título del libro: $tituloLibro \n"+"Autor del libro: $autorLibro  \n"+"Descripción del libro: $descripcionLibro \n"+"Género del libro: $generoLibro")
-                            .setPositiveButton("Aceptar") { dialog, _ ->
+                            .setPositiveButton("Pedir prestado") { dialog, _ ->
+                                // Acción cuando se presiona el botón "Pedir prestado"
+                                // logica para pedir prestado el libro
+                                val intent: Intent = Intent(this, Calendario:: class.java)
+                                startActivity(intent)
+                                finish()
+
+                                dialog.dismiss()
+                            }
+                            .setNegativeButton("Cancelar") { dialog, _ ->
+                                // Acción cuando se presiona el botón "Cancelar"
                                 dialog.dismiss()
                             }
                             .create()
